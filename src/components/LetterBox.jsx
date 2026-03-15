@@ -1,9 +1,27 @@
-export default function LetterBox({ letter, green, yellow, revealed }) {
+export default function LetterBox({
+  letter,
+  green,
+  yellow,
+  revealed,
+  keyboard,
+  onClick,
+}) {
   function backgroundColor() {
     if (green) return "bg-green-500";
     if (yellow) return "bg-yellow-500";
     if (!green && !yellow && revealed) return "bg-slate-600";
     return "bg-transparent";
+  }
+  if (keyboard) {
+    return (
+      <button
+        className={`${letter === "enter" || letter === "del" ? "w-28" : "w-16"} h-16 
+          border-[1px] border-gray-600 text-white text-2xl flex justify-center items-center font-bold select-none hover:cursor-pointer ${backgroundColor()}`}
+        onClick={() => onClick(letter)}
+      >
+        {letter.toUpperCase()}
+      </button>
+    );
   }
   return (
     <div

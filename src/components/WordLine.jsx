@@ -5,7 +5,30 @@ export default function WordLine({
   correctWord,
   correctLetterObject,
   revealed,
+  keyboard = false,
+  onKeyPress,
 }) {
+  if (keyboard) {
+    return (
+      <div className="flex flex-row space-x-2 m-2 justify-center">
+        {word.map((letter, index) => {
+          const hasCorrectLocation = letter === correctWord[index];
+          const hasCorrectLetter = letter in correctLetterObject;
+          return (
+            <LetterBox
+              letter={letter}
+              green={hasCorrectLocation && hasCorrectLetter && revealed}
+              yellow={!hasCorrectLocation && hasCorrectLetter && revealed}
+              revealed={revealed}
+              key={index}
+              keyboard={keyboard}
+              onClick={onKeyPress}
+            />
+          );
+        })}
+      </div>
+    );
+  }
   return (
     <div className="flex flex-row space-x-2 m-2 justify-center">
       {word.split("").map((letter, index) => {
@@ -18,6 +41,7 @@ export default function WordLine({
             yellow={!hasCorrectLocation && hasCorrectLetter && revealed}
             revealed={revealed}
             key={index}
+            keyboard={keyboard}
           />
         );
       })}
