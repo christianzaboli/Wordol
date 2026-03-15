@@ -88,9 +88,11 @@ function App() {
       <Keyboard
         revealed={gameOver}
         correctWord={correctWord}
+        guessedWords={guessedWords}
         correctLetterObject={correctLetterObject}
         onKeyPress={handleVirtualKey}
       />
+      {/* todo: modal for settings */}
       <div>
         <input
           className="max-w-40"

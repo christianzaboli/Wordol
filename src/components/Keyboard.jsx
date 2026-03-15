@@ -9,6 +9,7 @@ export default function Keyboard({
   correctWord,
   correctLetterObject,
   onKeyPress,
+  guessedWords,
 }) {
   return (
     <div>
@@ -16,6 +17,7 @@ export default function Keyboard({
         word={upperKeys}
         correctWord={correctWord}
         correctLetterObject={correctLetterObject}
+        guessedWords={guessedWords}
         revealed={revealed}
         keyboard={true}
         onKeyPress={onKeyPress}
@@ -24,6 +26,7 @@ export default function Keyboard({
         word={middleKeys}
         correctWord={correctWord}
         correctLetterObject={correctLetterObject}
+        guessedWords={guessedWords}
         revealed={revealed}
         keyboard={true}
         onKeyPress={onKeyPress}
@@ -32,6 +35,7 @@ export default function Keyboard({
         word={bottomKeys}
         correctWord={correctWord}
         correctLetterObject={correctLetterObject}
+        guessedWords={guessedWords}
         revealed={revealed}
         keyboard={true}
         onKeyPress={onKeyPress}
