@@ -63,10 +63,6 @@ export default function useWordleGame({
     if (currentWord !== correctWord && wordCount === totalGuesses - 1) {
       setGameOver(true);
       toast.error("Hai perso!", { position: "top-left" });
-      toast.message(`Soluzione: ${correctWord.toUpperCase()}`, {
-        position: "bottom-left",
-        duration: 7000,
-      });
       return;
     }
 
