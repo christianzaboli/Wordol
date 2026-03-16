@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useWebHaptics } from "web-haptics/react";
+
+const { trigger } = useWebHaptics();
 
 export default function useWordleGame({
   availableWords,
@@ -55,6 +58,7 @@ export default function useWordleGame({
     if (currentWord === correctWord) {
       if (availableWords.find((word) => word === currentWord)) {
         toast.success("Hai vinto!", { position: "top-left" });
+        trigger([{ duration: 30 }, { delay: 60, duration: 40, intensity: 1 }]);
         setGameOver(true);
         return;
       }
@@ -63,6 +67,7 @@ export default function useWordleGame({
     if (currentWord !== correctWord && wordCount === totalGuesses - 1) {
       setGameOver(true);
       toast.error("Hai perso!", { position: "top-left" });
+      trigger([{ duration: 25 }], { intensity: 0.7 });
       return;
     }
 
@@ -70,11 +75,19 @@ export default function useWordleGame({
       toast.error(`La parola deve contenere ${wordLength} lettere`, {
         position: "top-left",
       });
+      trigger([
+        { duration: 80, intensity: 0.8 },
+        { delay: 80, duration: 50, intensity: 0.3 },
+      ]);
       return;
     }
 
     if (!availableWords.includes(currentWord)) {
       toast.error("Parola non valida", { position: "top-left" });
+      trigger([
+        { duration: 80, intensity: 0.8 },
+        { delay: 80, duration: 50, intensity: 0.3 },
+      ]);
       return;
     }
 

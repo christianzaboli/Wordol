@@ -1,3 +1,7 @@
+import { useWebHaptics } from "web-haptics/react";
+
+const { trigger } = useWebHaptics();
+
 export default function LetterBox({
   letter,
   green,
@@ -18,14 +22,15 @@ export default function LetterBox({
   if (keyboard) {
     return (
       <button
-        className={`${letter === "enter" || letter === "del" ? "w-14 sm:w-28" : "w-7 sm:w-16"} h-10 sm:h-16 
+        className={`${letter === "enter" || letter === "del" ? "w-16 sm:w-28" : "w-9 sm:w-16"} h-14 sm:h-16 
           border-[1px] border-gray-600
-           text-white text-xs sm:text-2xl 
+           text-white text-base sm:text-2xl 
            flex justify-center items-center font-bold select-none hover:cursor-pointer hover:border-white ${backgroundColor()}
-           rounded-md sm:rounded-lg m-[1px]
+           rounded-md sm:rounded-lg m-[2px]
            `}
         onClick={(e) => {
           onClick(letter);
+          trigger([{ duration: 25 }], { intensity: 0.7 });
           e.target.blur();
         }}
       >
@@ -35,7 +40,7 @@ export default function LetterBox({
   }
   return (
     <div
-      className={`w-14 h-14 sm:w-16 sm:h-16 border-[1px] border-gray-600 text-white text-3xl sm:text-4xl flex justify-center items-center font-bold select-none ${backgroundColor()}
+      className={`w-16 h-16 sm:w-16 sm:h-16 border-[1px] border-gray-600 text-white text-3xl sm:text-4xl flex justify-center items-center font-bold select-none ${backgroundColor()}
       rounded-sm sm:rounded-lg m-[1px] sm:m-0`}
     >
       {letter.toUpperCase()}
