@@ -1,7 +1,5 @@
 import { useWebHaptics } from "web-haptics/react";
 
-const { trigger } = useWebHaptics();
-
 export default function LetterBox({
   letter,
   green,
@@ -11,6 +9,7 @@ export default function LetterBox({
   keyboard = false,
   onClick,
 }) {
+  const { trigger } = useWebHaptics();
   function backgroundColor() {
     if (green) return "bg-green-500";
     if (yellow && !green) return "bg-yellow-500";

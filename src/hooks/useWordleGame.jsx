@@ -2,14 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useWebHaptics } from "web-haptics/react";
 
-const { trigger } = useWebHaptics();
-
 export default function useWordleGame({
   availableWords,
   wordLength,
   totalGuesses,
   wordLengthInput,
 }) {
+  const { trigger } = useWebHaptics();
   const [guessedWords, setGuessedWords] = useState(() =>
     new Array(totalGuesses).fill(wordLengthInput),
   );
