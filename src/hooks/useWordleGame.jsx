@@ -16,6 +16,7 @@ export default function useWordleGame({
   const [letterCount, setLetterCount] = useState(0);
   const [currentWord, setCurrentWord] = useState(() => wordLengthInput);
   const [gameOver, setGameOver] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const getWord = useCallback(() => {
     if (!availableWords.length) {
@@ -47,7 +48,10 @@ export default function useWordleGame({
 
   const handleEnter = useCallback(() => {
     if (gameOver) return;
-
+    if (showSettingsModal) {
+      setShowSettingsModal(false);
+      return;
+    }
     if (currentWord === correctWord) {
       if (availableWords.find((word) => word === currentWord)) {
         toast.success("Hai vinto!", { position: "top-left" });
@@ -97,10 +101,11 @@ export default function useWordleGame({
     wordCount,
     wordLength,
     wordLengthInput,
+    showSettingsModal,
   ]);
 
   const handleBackspace = useCallback(() => {
-    if (gameOver || letterCount === 0) {
+    if (gameOver || letterCount === 0 || showSettingsModal) {
       return;
     }
 
@@ -111,11 +116,11 @@ export default function useWordleGame({
     });
 
     setLetterCount((currentCount) => currentCount - 1);
-  }, [gameOver, letterCount]);
+  }, [gameOver, letterCount, showSettingsModal]);
 
   const handleAlphabetical = useCallback(
     (key) => {
-      if (gameOver || letterCount === wordLength) {
+      if (gameOver || letterCount === wordLength || showSettingsModal) {
         return;
       }
 
@@ -127,7 +132,7 @@ export default function useWordleGame({
 
       setLetterCount((currentCount) => currentCount + 1);
     },
-    [gameOver, letterCount, wordLength],
+    [gameOver, letterCount, wordLength, showSettingsModal],
   );
 
   const handleVirtualKey = useCallback(
@@ -155,11 +160,14 @@ export default function useWordleGame({
 
   useEffect(() => {
     function handleKeyDown(e) {
-      if (gameOver) {
-        if (e.key === "Escape") {
+      if (e.key === "Escape") {
+        if (gameOver) {
           resetGame();
+          return;
         }
-        return;
+        if (showSettingsModal) {
+          setShowSettingsModal(false);
+        }
       }
 
       if (e.key === "Enter") {
@@ -177,6 +185,7 @@ export default function useWordleGame({
     };
   }, [gameOver, handleAlphabetical, handleBackspace, handleEnter, resetGame]);
 
+  const handleSettingsModal = () => setShowSettingsModal(!showSettingsModal);
   return {
     guessedWords,
     correctWord,
@@ -186,5 +195,7 @@ export default function useWordleGame({
     gameOver,
     resetGame,
     handleVirtualKey,
+    showSettingsModal,
+    handleSettingsModal,
   };
 }

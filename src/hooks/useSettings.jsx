@@ -7,14 +7,16 @@ export default function useSettings() {
 
   function changeWordLength(value) {
     const parsedValue = Number(value);
-    if (!Number.isFinite(parsedValue) || parsedValue < 1) return;
+    if (!Number.isFinite(parsedValue) || parsedValue < 1 || parsedValue > 9)
+      return;
     setWordLength(Math.floor(parsedValue));
   }
 
   const [totalGuesses, setTotalGuesses] = useState(6);
   function changeTotalGuesses(value) {
     const parsedValue = Number(value);
-    if (!Number.isFinite(parsedValue) || parsedValue < 1) return;
+    if (!Number.isFinite(parsedValue) || parsedValue < 5 || parsedValue > 7)
+      return;
     setTotalGuesses(Math.floor(parsedValue));
   }
 
