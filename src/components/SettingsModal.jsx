@@ -15,9 +15,10 @@ export default function SettingsModal(
       >
         <h2 className="text-2xl font-bold mb-4">Settings</h2>
         <div className="flex flex-col gap-3">
+          <span className="text-start">Numero di caratteri</span>
           <input
             autoFocus
-            className="w-full rounded-md px-3 py-2 bg-[#1e1f20] border border-gray-600"
+            className="w-full rounded-md px-3 py-2 bg-[#1e1f20] border border-gray-600 "
             type="number"
             placeholder="Numero di sillabe"
             min={1}
@@ -29,7 +30,7 @@ export default function SettingsModal(
           />
           <select
             onChange={(e) => changeTotalGuesses(e.target.value)}
-            className="w-full rounded-md px-3 py-2 bg-[#1e1f20] border border-gray-600"
+            className="w-full rounded-md px-3 py-2 bg-[#1e1f20] border border-gray-60 appearance-none"
           >
             <option value="6">Difficoltá</option>
             <option value="7">Facile</option>
@@ -38,7 +39,7 @@ export default function SettingsModal(
           </select>
         </div>
         <button
-          className="mt-5 py-2 px-6 border border-gray-500 rounded-full hover:border-gray-200"
+          className="mt-5 py-2 px-6 border border-gray-500 rounded-md hover:border-gray-200"
           onClick={handleSettingsModal}
         >
           Close
